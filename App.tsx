@@ -1,8 +1,10 @@
 
+
 import React from 'react';
-import { HeartIcon, EyeIcon, SparkleIcon, CheckIcon, ArrowLeftIcon } from './components/icons';
+import { HeartIcon, EyeIcon, SparkleIcon, CheckIcon, ArrowLeftIcon, ArrowDownIcon } from './components/icons';
 
 const UPAY_LINK = 'https://app.upay.co.il/API6/s.php?m=clpYYzdxaG5kY2dNekVMalVRSVVvdz09';
+const BITPAY_LINK = 'https://www.bitpay.co.il/app/share-info?i=202738567169_19l9WK6M';
 
 const whoIsItForItems = [
   { text: 'למי שמרגישה אינטואיציה חזקה ורוצה להבין אותה', icon: HeartIcon },
@@ -31,10 +33,11 @@ const participantResults = [
 interface SectionProps {
   children: React.ReactNode;
   className?: string;
+  id?: string;
 }
 
-const Section: React.FC<SectionProps> = ({ children, className = '' }) => (
-  <section className={`py-10 md:py-16 px-4 sm:px-6 lg:px-8 ${className}`}>
+const Section: React.FC<SectionProps> = ({ children, className = '', id }) => (
+  <section id={id} className={`py-10 md:py-16 px-4 sm:px-6 lg:px-8 ${className}`}>
     <div className="container mx-auto max-w-4xl">{children}</div>
   </section>
 );
@@ -66,19 +69,35 @@ interface CTAButtonProps {
     href: string;
     children: React.ReactNode;
     className?: string;
+    icon?: React.ReactNode;
 }
 
-const CTAButton: React.FC<CTAButtonProps> = ({ href, children, className = ''}) => (
+const CTAButton: React.FC<CTAButtonProps> = ({ href, children, className = '', icon}) => {
+    const isExternal = href.startsWith('http');
+    return (
+        <a
+            href={href}
+            target={isExternal ? "_blank" : "_self"}
+            rel={isExternal ? "noopener noreferrer" : ""}
+            className={`inline-flex items-center justify-center gap-3 text-center bg-gradient-to-r from-blue-500 via-cyan-400 to-cyan-500 text-white font-bold text-lg md:text-xl rounded-full px-10 py-4 shadow-lg shadow-cyan-500/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/60 ${className}`}
+        >
+            {children}
+            {icon ? icon : <ArrowLeftIcon className="w-6 h-6" />}
+        </a>
+    );
+}
+
+const BitButton: React.FC<{href: string}> = ({ href }) => (
     <a
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`inline-flex items-center justify-center gap-3 text-center bg-gradient-to-r from-blue-500 via-cyan-400 to-cyan-500 text-white font-bold text-lg md:text-xl rounded-full px-10 py-4 shadow-lg shadow-cyan-500/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/60 ${className}`}
+        className="inline-flex items-center justify-center gap-3 text-center bg-blue-600 text-white font-bold text-lg md:text-xl rounded-full px-10 py-4 shadow-lg shadow-blue-500/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-blue-500/60"
     >
-        {children}
-        <ArrowLeftIcon className="w-6 h-6" />
+        הרשמה עם הביט
     </a>
 );
+
 
 export default function App() {
   return (
@@ -95,7 +114,7 @@ export default function App() {
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 mb-10 leading-relaxed">
              גלו איך להיכנס למצב תודעתי עמוק ולהתחיל לקבל מסרים – <span className="text-cyan-400 font-semibold">גם אם</span> מעולם לא עשיתן זאת לפני כן.
             </p>
-            <CTAButton href={UPAY_LINK}>
+            <CTAButton href="#registration-section" icon={<ArrowDownIcon className="w-6 h-6" />}>
               אני רוצה להרשם לשיעור הראשון
             </CTAButton>
             <p className="mt-4 text-sm text-gray-400">מלא | נפתח</p>
@@ -172,7 +191,7 @@ export default function App() {
                     <p className="font-semibold text-white">רוב המשתתפות מתחילות לתקשר כבר במפגש הראשון או השני.</p>
                  </div>
             </div>
-        </Section>
+        </section>
 
         <Section>
              <h3 className="text-center text-2xl md:text-3xl font-semibold text-white mb-6">הבנה דרך צלילים ומוזיקה</h3>
@@ -194,10 +213,19 @@ export default function App() {
             <VideoEmbed vimeoId="1143175432" title="הכשרת תקשור סיום" />
         </Section>
 
-        <Section className="text-center">
-             <CTAButton href={UPAY_LINK} className="text-2xl px-12 py-5">
-              אני רוצה להרשם לשיעור הראשון
-            </CTAButton>
+        <Section className="text-center" id="registration-section">
+            <div className="mb-8 p-6 bg-black/20 rounded-2xl border border-white/10 max-w-2xl mx-auto">
+                <p className="text-xl md:text-2xl text-gray-200 leading-relaxed">
+                    למי שסיים את כל ההדרכה פה מקבל את השיעור הראשון <br/>
+                    במקום <s className="text-red-400/80 text-2xl">250₪</s> <span className="font-bold text-cyan-400 text-4xl">120₪</span>
+                </p>
+            </div>
+            <div className="flex flex-col items-center gap-4">
+                <CTAButton href={UPAY_LINK} className="text-2xl px-12 py-5">
+                    אני רוצה להרשם לשיעור הראשון
+                </CTAButton>
+                <BitButton href={BITPAY_LINK} />
+            </div>
         </Section>
       </main>
       <footer className="text-center p-6 text-gray-400">
