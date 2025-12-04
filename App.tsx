@@ -33,7 +33,7 @@ interface SectionProps {
 }
 
 const Section: React.FC<SectionProps> = ({ children, className = '' }) => (
-  <section className={`py-12 md:py-20 px-4 sm:px-6 lg:px-8 ${className}`}>
+  <section className={`py-10 md:py-16 px-4 sm:px-6 lg:px-8 ${className}`}>
     <div className="container mx-auto max-w-4xl">{children}</div>
   </section>
 );
@@ -72,7 +72,7 @@ const CTAButton: React.FC<CTAButtonProps> = ({ href, children, className = ''}) 
         href={href}
         target="_blank"
         rel="noopener noreferrer"
-        className={`inline-flex items-center justify-center gap-3 text-center bg-gradient-to-r from-yellow-400 via-orange-500 to-orange-600 text-white font-bold text-lg md:text-xl rounded-full px-10 py-4 shadow-lg shadow-orange-500/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-orange-500/60 ${className}`}
+        className={`inline-flex items-center justify-center gap-3 text-center bg-gradient-to-r from-blue-500 via-cyan-400 to-cyan-500 text-white font-bold text-lg md:text-xl rounded-full px-10 py-4 shadow-lg shadow-cyan-500/40 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-cyan-500/60 ${className}`}
     >
         {children}
         <ArrowLeftIcon className="w-6 h-6" />
@@ -84,15 +84,15 @@ export default function App() {
     <div className="bg-[#0f0c29] text-gray-200 starry-bg">
       <main>
         {/* Hero Section */}
-        <Section className="min-h-screen flex flex-col items-center justify-center text-center !pt-20 !pb-10">
+        <Section className="!pt-16 md:!pt-24 text-center">
             <div className="inline-block bg-purple-500/20 text-purple-200 text-sm font-semibold rounded-full px-4 py-1 mb-6 border border-purple-400/30">
              ✨ מכור מראש למחזור הקרוב
             </div>
             <h1 className="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
-              תקשור היא לא <span className="text-yellow-400">יכולת על טבעית</span><br /> היא מיומנות
+              תקשור היא לא <span className="text-cyan-400">יכולת על טבעית</span><br /> היא מיומנות
             </h1>
             <p className="max-w-2xl mx-auto text-lg md:text-xl text-gray-300 mb-10 leading-relaxed">
-             גלו איך להיכנס למצב תודעתי עמוק ולהתחיל לקבל מסרים – <span className="text-yellow-400 font-semibold">גם אם</span> מעולם לא עשיתן זאת לפני כן.
+             גלו איך להיכנס למצב תודעתי עמוק ולהתחיל לקבל מסרים – <span className="text-cyan-400 font-semibold">גם אם</span> מעולם לא עשיתן זאת לפני כן.
             </p>
             <CTAButton href={UPAY_LINK}>
               אני רוצה להרשם לשיעור הראשון
@@ -100,9 +100,10 @@ export default function App() {
             <p className="mt-4 text-sm text-gray-400">מלא | נפתח</p>
         </Section>
         
-        <Section>
+        {/* First Video Section */}
+        <Section className="!pt-0 md:!pt-0">
             <VideoEmbed vimeoId="1143137311" autoplay title="הכשרת תקשור עם אביב אפרת 1" />
-            <p className="text-center mt-6 text-lg text-gray-300">צפו בפתיח וחוו את האנרגיה של התקשור כבר מהרגע הראשון.</p>
+            <p className="mt-6 text-lg text-gray-300 text-center">צפו בפתיח וחוו את האנרגיה של התקשור כבר מהרגע הראשון.</p>
         </Section>
 
         <Section>
